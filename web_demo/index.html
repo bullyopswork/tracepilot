@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TracePilot — Gemini/ADK self-debugging operator</title>
+  <meta name="description" content="TracePilot demo shell: Phoenix MCP-powered operator loop for debugging Gemini/ADK agents.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Google Cloud Rapid Agent Hackathon · Arize track</p>
+      <h1>TracePilot</h1>
+      <p class="tagline">A Phoenix MCP-powered operator loop that watches a Gemini/ADK agent fail quietly, diagnoses the trace, and proves the fix.</p>
+      <div class="score" aria-label="Proof narrative score progression">
+        <span>71/100</span><strong>→</strong><span>71/100</span><strong>→</strong><span class="pass">100/100</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>What it proves</h2>
+        <p>TracePilot runs a compact Google ADK shopping agent with Gemini, emits OpenInference spans to Phoenix, retrieves the latest trace through Phoenix MCP, and turns trace facts into a deterministic task-completion diagnosis.</p>
+      </article>
+      <article class="card">
+        <h2>Stack</h2>
+        <ul>
+          <li>Google ADK + Gemini shopping agent</li>
+          <li>OpenInference instrumentation</li>
+          <li>Arize Phoenix trace backend</li>
+          <li><code>@arizeai/phoenix-mcp</code> retrieval</li>
+          <li>TracePilot operator scorer/refiner</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Canonical proof</h2>
+        <dl>
+          <dt>Trace ID</dt><dd><code>52fa8eaf399d8cc4251a9e7f8441a903</code></dd>
+          <dt>Proof gate</dt><dd><code>proof_gate/artifacts/20260513T120554Z/</code></dd>
+          <dt>Report</dt><dd><code>tracepilot_artifacts/20260513T120607Z/</code></dd>
+        </dl>
+      </article>
+      <article class="card">
+        <h2>Sanitized final answer</h2>
+        <blockquote>I found the “Floral Summer Dress flowy midi” (ASIN: B09P5CRVQ6) and confirmed that size M is available. Tool steps: searched for “floral dress”; clicked “B09P5CRVQ6”.</blockquote>
+      </article>
+    </section>
+
+    <section class="card wide">
+      <h2>Demo video placeholder</h2>
+      <p>Preferred local upload candidate after review:</p>
+      <p><code>../demo_media_package/first_plus_phoenix/tracepilot_demo_first_plus_phoenix_fixed.mp4</code></p>
+      <p class="note">This static shell does not embed raw proof JSON, secrets, or private Phoenix UI data. Public video/upload remains approval-gated.</p>
+    </section>
+
+    <section class="card wide">
+      <h2>Why it matters</h2>
+      <p>The early agent answers sounded plausible but missed constraints like size M or product inspection. TracePilot uses observability evidence—not vibes—to explain the gap and force the next task toward verifiable completion.</p>
+    </section>
+  </main>
+</body>
+</html>
