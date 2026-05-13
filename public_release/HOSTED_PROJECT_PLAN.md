@@ -1,14 +1,15 @@
 # TracePilot hosted project plan
 
-Goal: satisfy the hackathon "runs on web/Android/iOS" requirement with the lowest-risk path. The minimal static web demo shell has now been deployed to Cloud Run and verified public.
+Goal: satisfy the hackathon "runs on web/Android/iOS" requirement with the lowest-risk path. The original static shell was deployed to Cloud Run and verified public. The local `web_demo/` has now been upgraded into a safe interactive demo mode; redeploy is required before the public URL reflects the upgraded judge-testable page.
 
-## Recommended path: static web demo shell
+## Recommended path: safe static interactive hosted demo
 
 Local files:
 
-- `web_demo/index.html` — single-page public demo
+- `web_demo/index.html` — single-page public demo with deterministic “Run safe demo proof” interaction
 - `web_demo/styles.css` — static styling
-- `web_demo/README.md` — local run and future deploy notes
+- `web_demo/README.md` — local run and deployment notes
+- `docs/architecture.mmd` — simple Mermaid architecture diagram for README/Devpost citation
 
 Local command:
 
@@ -18,7 +19,7 @@ python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-No secrets, no external API calls, and no Phoenix/Gemini calls are embedded in the static shell.
+No secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls are embedded in the static page. The browser interaction uses sanitized proof facts; the source repo and demo video show the real runnable proof path.
 
 Verified hosted URL:
 
@@ -29,10 +30,12 @@ Verified hosted URL:
 - Project title/tagline
 - The stack: Gemini, Google ADK, OpenInference/Phoenix, Phoenix MCP, TracePilot operator
 - Proof narrative: `71/100 → 71/100 → 100/100`
+- Interactive safe proof replay: user task → ADK coordinator/specialists → Gemini/ADK output → Phoenix/OpenInference trace retrieval via Phoenix MCP → TracePilot diagnosis/refinement
 - Canonical trace/artifact references
 - Sanitized final-answer excerpt
-- Demo video placeholder pointing to `../demo_media_package/first_plus_phoenix/tracepilot_demo_first_plus_phoenix_fixed.mp4`
-- Clear note that raw proof JSON and secrets are not public
+- Correct demo video link: https://youtu.be/Old2pqRtC70
+- GitHub repo link: https://github.com/bullyopswork/tracepilot
+- Clear note that raw proof JSON, secrets, and private Phoenix UI/account data are not public
 
 ## Future hosted options after approval
 
@@ -73,7 +76,7 @@ Not recommended for the current deadline. The static web shell can run in mobile
 
 ## Hosted URL status
 
-Current status: **complete / verified**.
+Current status: **public URL verified for the earlier shell; upgraded safe interactive demo is local-only until redeployed after approval**.
 
 Verification on 2026-05-13:
 

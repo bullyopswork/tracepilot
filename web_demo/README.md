@@ -1,6 +1,6 @@
-# TracePilot web demo shell
+# TracePilot safe hosted web demo
 
-Static shell for the hackathon hosted-project requirement. It is intentionally safe: no secrets, no external API calls, and no Phoenix/Gemini calls embedded in the public page.
+Safe hosted demo mode for the hackathon hosted-project requirement. It is intentionally safe: no secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls embedded in the public page. The interactive button replays deterministic sanitized proof facts so judges can test the flow without credentials.
 
 Verified Cloud Run URL:
 
@@ -18,10 +18,11 @@ python3 -m http.server 8080
 
 - TracePilot project story
 - Stack summary: Gemini, Google ADK, OpenInference/Phoenix, Phoenix MCP
-- Canonical proof references
-- Sanitized `71/100 → 71/100 → 100/100` proof narrative
-- Demo video placeholder; public YouTube/Vimeo URL will be added after approval and upload verification.
-- Reviewed local video candidate: `../demo_media_package/first_plus_phoenix/tracepilot_demo_first_plus_phoenix_fixed.mp4`
+- Multi-agent names: `personalized_shopping_agent`, `product_selection_agent`, and `purchase_verification_agent`
+- Interactive “Run safe demo proof” path that deterministically replays the sanitized proof sequence
+- Canonical proof references and sanitized `71/100 → 71/100 → 100/100` proof narrative
+- Correct demo video link: https://youtu.be/Old2pqRtC70
+- GitHub repo link: https://github.com/bullyopswork/tracepilot
 
 ## What it excludes
 
@@ -46,4 +47,4 @@ Command shape used from this directory:
 gcloud run deploy tracepilot-demo --source . --region us-central1 --project bullyopswork --allow-unauthenticated --quiet
 ```
 
-Verification: public HTTP status `200`; live page contains expected TracePilot title/H1, Phoenix MCP wording, and Gemini/ADK wording.
+Verification: public HTTP status `200`; live page contains expected TracePilot title/H1, Phoenix MCP wording, and Gemini/ADK wording. After this local upgrade, redeploy is still required before the public URL reflects the safe interactive proof mode.

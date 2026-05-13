@@ -36,6 +36,7 @@ PHOENIX_PROJECT_NAME=tracepilot-proof
 ## Commands
 
 ```bash
+PHOENIX_API_KEY= .venv/bin/python proof_gate/check_multi_agent_structure.py
 cd projects/agent-money-loop-pilot/tracepilot_proof_slice/arize-gemini-hackathon
 . .venv/bin/activate
 python proof_gate/check_real_stack.py
@@ -55,6 +56,11 @@ make tracepilot-demo-local
 - Phoenix Cloud shows fresh spans for `tracepilot-proof` or configured project.
 - Phoenix MCP can answer: "show/summarize the latest trace in my tracepilot-proof project."
 - TracePilot package writes `tracepilot_artifacts/<timestamp>/diagnosis.json`, `demo_report.md`, `refined_task.txt`, and `phoenix_mcp_summary.safe.json`.
+
+## Local multi-agent structure check
+
+- `proof_gate/check_multi_agent_structure.py` verifies, without external calls, that `root_agent` wires at least two ADK `Agent(...)` sub-agents through `sub_agents`.
+- This is a code-shape compliance check only. It does not prove Gemini/Phoenix behavior after the multi-agent change.
 
 ## Latest verified completion-fix pass
 

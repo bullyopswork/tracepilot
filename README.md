@@ -2,8 +2,6 @@
 
 Compact internal hackathon package for the **Arize @ Google Cloud Partnerships Hackathon** track: a small **Google ADK** shopping agent, **Gemini**, **OpenInference/Phoenix** tracing, **Phoenix MCP** retrieval, and a thin **TracePilot operator loop** that diagnoses a real trace and proposes the next better task.
 
-Hosted demo: https://tracepilot-demo-thryhyeqga-uc.a.run.app
-
 This repo uses a **tiny in-memory catalog** so you can run locally in minutes (no PyTorch, Pyserini, or multi-gigabyte product downloads). The agent still exposes familiar **search** / **click** tools and a shopping-focused system prompt derived from [google/adk-samples personalized-shopping](https://github.com/google/adk-samples/tree/main/python/agents/personalized-shopping).
 
 ## What it proves
@@ -108,6 +106,9 @@ User task
   -> safe demo artifacts + refined next task
 ```
 
+
+See also: [`docs/architecture.mmd`](docs/architecture.mmd) for a simple Mermaid diagram covering the Google ADK coordinator, `product_selection_agent`, `purchase_verification_agent`, Gemini, OpenInference/Phoenix, Phoenix MCP, and TracePilot operator loop.
+
 The operator script is intentionally small and deterministic. It does not mutate Phoenix, submit anything externally, or store credentials. It reads proof artifacts, extracts safe trace facts, scores the run, and writes a concrete next task that should force better agent behavior.
 
 ## Local submission package
@@ -129,10 +130,10 @@ Suggested internal demo narrative:
 
 Known caveats:
 
-- This is a proof slice with a static Cloud Run-hosted web shell, not a production hosted shopping product.
+- This is an internal proof slice, not a hosted product.
 - The refined task is generated locally; the default demo does not automatically run a second Gemini turn unless the operator chooses to run the proof gate again with `tracepilot_artifacts/latest/refined_task.txt`.
 - Current verified proof: baseline `71/100` → second turn `71/100` → latest completion-fix run `100/100` (`tracepilot_artifacts/latest/before_after_report.md`).
-- Further external Devpost/video updates remain approval-gated.
+- External Devpost/GitHub publication remains approval-gated.
 
 ## Layout
 
@@ -157,3 +158,20 @@ Agent structure and prompts are adapted from **Google ADK Samples** — [persona
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE).
+
+## ADK multi-agent shape
+
+TracePilot now runs as a Google ADK multi-agent app locally:
+
+- `personalized_shopping_agent` is the root ADK coordinator.
+- `product_selection_agent` is an ADK specialist for webshop search/product selection.
+- `purchase_verification_agent` is an ADK specialist for product-page option verification.
+
+The coordinator still exposes the direct `search` and `click` tools used in the latest 100/100 completion-fix proof so the one-turn demo behavior stays stable. The local static/runtime guard is:
+
+```bash
+PHOENIX_API_KEY= .venv/bin/python proof_gate/check_multi_agent_structure.py
+```
+
+A fresh real Gemini/Phoenix proof rerun is still recommended before public submission because the canonical 100/100 proof was recorded before this multi-agent wiring change.
+

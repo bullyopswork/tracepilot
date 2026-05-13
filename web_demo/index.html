@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TracePilot — Gemini/ADK self-debugging operator</title>
-  <meta name="description" content="TracePilot demo shell: Phoenix MCP-powered operator loop for debugging Gemini/ADK agents.">
+  <title>TracePilot — safe Gemini/ADK hosted demo</title>
+  <meta name="description" content="Safe hosted demo mode for TracePilot: a Phoenix MCP-powered operator loop for debugging Gemini/ADK agents with sanitized proof data.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,24 +12,31 @@
     <section class="hero">
       <p class="eyebrow">Google Cloud Rapid Agent Hackathon · Arize track</p>
       <h1>TracePilot</h1>
-      <p class="tagline">A Phoenix MCP-powered operator loop that watches a Gemini/ADK agent fail quietly, diagnoses the trace, and proves the fix.</p>
+      <p class="tagline">A Phoenix MCP-powered operator loop that watches a Gemini/Google ADK agent fail quietly, diagnoses the trace, and proves the fix.</p>
       <div class="score" aria-label="Proof narrative score progression">
         <span>71/100</span><strong>→</strong><span>71/100</span><strong>→</strong><span class="pass">100/100</span>
       </div>
+      <div class="actions">
+        <button id="run-demo" type="button">Run safe demo proof</button>
+        <a class="button secondary" href="https://github.com/bullyopswork/tracepilot" rel="noopener noreferrer">GitHub repo</a>
+        <a class="button secondary" href="https://youtu.be/Old2pqRtC70" rel="noopener noreferrer">Demo video</a>
+      </div>
+      <p class="safety-note"><strong>Safe hosted demo mode:</strong> this public page (safe hosted demo mode) runs a deterministic, sanitized simulation in your browser. It does not call Gemini, Google ADK, Phoenix, Phoenix MCP, or any private API. The source repo contains runnable code, and the video shows the real proof run.</p>
     </section>
 
     <section class="grid">
       <article class="card">
         <h2>What it proves</h2>
-        <p>TracePilot runs a compact Google ADK shopping agent with Gemini, emits OpenInference spans to Phoenix, retrieves the latest trace through Phoenix MCP, and turns trace facts into a deterministic task-completion diagnosis.</p>
+        <p>TracePilot runs above a compact Google ADK shopping agent with Gemini, emits OpenInference spans to Phoenix, retrieves the latest trace through Phoenix MCP, and turns trace facts into a deterministic task-completion diagnosis.</p>
       </article>
       <article class="card">
         <h2>Stack</h2>
         <ul>
-          <li>Google ADK + Gemini shopping agent</li>
+          <li>Google ADK multi-agent coordinator</li>
+          <li>Gemini shopping-agent reasoning</li>
+          <li><code>product_selection_agent</code> and <code>purchase_verification_agent</code></li>
           <li>OpenInference instrumentation</li>
-          <li>Arize Phoenix trace backend</li>
-          <li><code>@arizeai/phoenix-mcp</code> retrieval</li>
+          <li>Arize Phoenix trace backend + <code>@arizeai/phoenix-mcp</code></li>
           <li>TracePilot operator scorer/refiner</li>
         </ul>
       </article>
@@ -39,6 +46,7 @@
           <dt>Trace ID</dt><dd><code>52fa8eaf399d8cc4251a9e7f8441a903</code></dd>
           <dt>Proof gate</dt><dd><code>proof_gate/artifacts/20260513T120554Z/</code></dd>
           <dt>Report</dt><dd><code>tracepilot_artifacts/20260513T120607Z/</code></dd>
+          <dt>Score path</dt><dd><code>71/100 → 71/100 → 100/100</code></dd>
         </dl>
       </article>
       <article class="card">
@@ -47,11 +55,26 @@
       </article>
     </section>
 
+    <section class="card wide demo-panel" aria-labelledby="demo-title">
+      <div class="demo-heading">
+        <div>
+          <h2 id="demo-title">Safe interactive proof</h2>
+          <p>Click the button to replay the sanitized proof path judges can inspect without credentials.</p>
+        </div>
+        <span class="pill">No live secrets · no external calls</span>
+      </div>
+      <ol id="demo-steps" class="timeline" aria-live="polite"></ol>
+      <div id="demo-result" class="result" hidden>
+        <h3>TracePilot result</h3>
+        <p><strong>Diagnosis:</strong> first two runs were plausible but under-specified: the trace did not prove product inspection and size-M confirmation. The final run preserved product-page context and required explicit tool-step explanation.</p>
+        <p><strong>Final score:</strong> <span class="pass-text">100/100</span> with trace retrieval, tool spans, floral-dress match, size-M preservation, product inspection, and tool-step explanation all passing.</p>
+      </div>
+    </section>
+
     <section class="card wide">
-      <h2>Demo video placeholder</h2>
-      <p>Preferred local upload candidate after review:</p>
-      <p><code>../demo_media_package/first_plus_phoenix/tracepilot_demo_first_plus_phoenix_fixed.mp4</code></p>
-      <p class="note">This static shell does not embed raw proof JSON, secrets, or private Phoenix UI data. Public video/upload remains approval-gated.</p>
+      <h2>Demo video</h2>
+      <p>Correct video link: <a href="https://youtu.be/Old2pqRtC70" rel="noopener noreferrer">https://youtu.be/Old2pqRtC70</a>.</p>
+      <p class="note">The video shows the real local proof run. This hosted page stays safe by using sanitized proof data instead of exposing raw proof JSON, API keys, or private Phoenix UI/account data.</p>
     </section>
 
     <section class="card wide">
@@ -59,5 +82,59 @@
       <p>The early agent answers sounded plausible but missed constraints like size M or product inspection. TracePilot uses observability evidence—not vibes—to explain the gap and force the next task toward verifiable completion.</p>
     </section>
   </main>
+
+  <script>
+    const steps = [
+      {
+        label: 'User shopping task',
+        detail: 'Find a floral dress in size M, then explain which tool steps you used.'
+      },
+      {
+        label: 'Google ADK multi-agent coordination',
+        detail: 'personalized_shopping_agent routes work through product_selection_agent and purchase_verification_agent while preserving the direct search/click tool path used in the proof.'
+      },
+      {
+        label: 'Gemini / ADK output',
+        detail: 'Gemini interprets the request, searches for “floral dress,” clicks ASIN B09P5CRVQ6, and produces a structured final answer with explicit tool steps.'
+      },
+      {
+        label: 'Phoenix / OpenInference trace retrieval via Phoenix MCP',
+        detail: 'OpenInference spans are sent to Phoenix in the real run; TracePilot retrieves the latest trace through @arizeai/phoenix-mcp. This page replays sanitized trace facts only.'
+      },
+      {
+        label: 'TracePilot diagnosis and refinement',
+        detail: 'The operator checks trace retrievability, span health, search/click use, floral-dress match, size-M preservation, product inspection, and tool-step explanation.'
+      },
+      {
+        label: 'Score path',
+        detail: 'Before: 71/100. Second pass: 71/100. Completion-fix run: 100/100.'
+      }
+    ];
+
+    const button = document.getElementById('run-demo');
+    const list = document.getElementById('demo-steps');
+    const result = document.getElementById('demo-result');
+
+    button.addEventListener('click', () => {
+      button.disabled = true;
+      button.textContent = 'Replaying safe proof…';
+      list.innerHTML = '';
+      result.hidden = true;
+
+      steps.forEach((step, index) => {
+        window.setTimeout(() => {
+          const item = document.createElement('li');
+          item.innerHTML = `<strong>${step.label}</strong><span>${step.detail}</span>`;
+          list.appendChild(item);
+
+          if (index === steps.length - 1) {
+            result.hidden = false;
+            button.disabled = false;
+            button.textContent = 'Run safe demo proof again';
+          }
+        }, 260 * index);
+      });
+    });
+  </script>
 </body>
 </html>

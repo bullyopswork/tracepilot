@@ -1,5 +1,12 @@
 # TracePilot
 
+## Public links
+
+- Hosted demo: https://tracepilot-demo-thryhyeqga-uc.a.run.app
+- GitHub repo: https://github.com/bullyopswork/tracepilot
+- Demo video: https://youtu.be/Old2pqRtC70
+- Architecture diagram: `docs/architecture.mmd`
+
 ## Tagline
 
 A Phoenix MCP-powered operator loop that watches a real Gemini/ADK agent fail quietly, diagnoses the trace, fixes the loop, and proves the next run reaches 100/100.
@@ -8,15 +15,9 @@ A Phoenix MCP-powered operator loop that watches a real Gemini/ADK agent fail qu
 
 AI agents can look successful while missing the actual user constraint. In the shopping demo, the agent could search for a floral dress and produce a plausible answer, but early traces showed it failed to preserve `size M` or inspect a specific product. That is the failure mode TracePilot targets: not “did the model say something fluent?” but “did the agent actually use tools and satisfy the task?”
 
-## Hosted demo
-
-Verified hosted web demo: https://tracepilot-demo-thryhyeqga-uc.a.run.app
-
-The hosted page is a static public demo shell for the submission; the real ADK/Gemini/Phoenix proof runs locally and is documented in the repository artifacts.
-
 ## What it does
 
-TracePilot sits above a compact Google ADK/Gemini shopping agent and turns observability into an operator feedback loop:
+TracePilot sits above a compact Google ADK/Gemini shopping agent and turns observability into an operator feedback loop. The hosted page is a safe demo mode: it replays sanitized proof facts in-browser and does not expose live API keys or require public Phoenix/Gemini credentials.
 
 1. Run a real Gemini/ADK shopping turn with OpenInference spans emitted to Phoenix.
 2. Retrieve the latest Phoenix trace through `@arizeai/phoenix-mcp`.
@@ -31,6 +32,7 @@ TracePilot sits above a compact Google ADK/Gemini shopping agent and turns obser
 - **Tracing:** OpenInference/Phoenix instrumentation records agent, LLM, and tool spans.
 - **Retrieval:** Phoenix MCP retrieves trace/project context for the latest run.
 - **Operator layer:** `tracepilot_operator.py` deterministically reads safe proof artifacts and generates the score, diagnosis, and next-task refinement.
+- **Hosted demo mode:** `web_demo/` provides a static, judge-testable safe replay of the same proof sequence without live external calls.
 - **Completion fix:** the search/click tool observations were changed to preserve enough product page context, and the shopping prompt was tightened so a one-turn exact-item request must answer with ASIN/title, explicit size confirmation, and the tool steps used.
 
 ## Arize / Phoenix usage
@@ -76,9 +78,10 @@ Gemini powers the ADK shopping agent. The verified fixed run used Gemini to inte
 - Turn the local operator loop into a repeatable evaluation harness across multiple tasks.
 - Add richer Phoenix-backed evals and trend views across agent revisions.
 - Expand beyond the compact in-memory catalog to the full WebShop or real commerce data.
-- Package a short demo video showing Phoenix trace retrieval, diagnosis, code fix, and final 100/100 proof.
-- Public repo/video/Devpost links will be finalized after explicit operator approval and verification.
+- Turn the Cloud Run static shell into a fuller hosted interactive demo.
+- Add richer multi-task benchmark runs beyond the compact shopping proof slice.
+- Expand the operator loop to automatically compare Phoenix-backed eval trends across agent revisions.
 
 ## Local-only boundary
 
-This draft is for local review before public submission. Do not submit to Devpost or make additional external changes without explicit approval.
+This draft is for local review before public submission. Do not submit to Devpost, publish GitHub, deploy, or make external changes without explicit approval.

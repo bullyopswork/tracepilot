@@ -1,0 +1,15 @@
+```mermaid
+flowchart TD
+  U[User shopping task] --> R[Google ADK root coordinator\npersonalized_shopping_agent]
+  R --> PS[product_selection_agent\nsearch/catalog selection]
+  R --> PV[purchase_verification_agent\nproduct page + size verification]
+  R --> G[Gemini model output]
+  R --> OI[OpenInference spans]
+  OI --> P[Arize Phoenix traces]
+  P --> MCP[Phoenix MCP\n@arizeai/phoenix-mcp]
+  MCP --> TP[TracePilot operator\nscore + diagnose + refine]
+  TP --> A[Safe artifacts\n71/100 → 71/100 → 100/100]
+  A --> H[Hosted safe demo mode\nsanitized browser replay]
+```
+
+TracePilot's hosted page replays sanitized proof facts only. The real local proof run uses Gemini, Google ADK, OpenInference, Phoenix, and Phoenix MCP from the runnable source repo.
