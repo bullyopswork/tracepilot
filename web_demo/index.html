@@ -172,10 +172,10 @@
       summary.score_progression.forEach((row) => {
         const failures = row.failed_checks.length ? row.failed_checks.join('; ') : 'None — all rubric checks passed';
         tbody.appendChild(el('tr', {}, [
-          el('td', { text: row.run }),
-          el('td', { className: row.score === '100/100' ? 'pass-cell' : 'warn-cell', text: row.score }),
-          el('td', {}, [el('code', { text: row.trace_id }), el('br'), el('code', { text: row.artifact })]),
-          el('td', { text: failures })
+          el('td', { 'data-label': 'Run', text: row.run }),
+          el('td', { 'data-label': 'Score', className: row.score === '100/100' ? 'pass-cell' : 'warn-cell', text: row.score }),
+          el('td', { 'data-label': 'Trace / artifact' }, [el('code', { text: row.trace_id }), el('br'), el('code', { text: row.artifact })]),
+          el('td', { 'data-label': 'Failed checks', text: failures })
         ]));
       });
       table.append(thead, tbody);
