@@ -2,3 +2,6 @@
 !index.html
 !styles.css
 !Dockerfile
+
+!assets/
+!assets/**
