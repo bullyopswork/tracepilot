@@ -1,13 +1,15 @@
 # TracePilot hosted project plan
 
-Goal: satisfy the hackathon "runs on web/Android/iOS" requirement with the lowest-risk path. The original static shell was deployed to Cloud Run and verified public. The local `web_demo/` has now been upgraded into a safe interactive demo mode; redeploy is required before the public URL reflects the upgraded judge-testable page.
+Goal: satisfy the hackathon "runs on web/Android/iOS" requirement with the lowest-risk path. The original static shell was deployed to Cloud Run and verified public. The local `web_demo/` has now been upgraded into an evidence-backed sanitized proof explorer; redeploy is required before the public URL reflects the upgraded judge-testable page.
 
 ## Recommended path: safe static interactive hosted demo
 
 Local files:
 
-- `web_demo/index.html` — single-page public demo with deterministic “Run safe demo proof” interaction
+- `web_demo/index.html` — single-page public demo with deterministic “Load sanitized proof evidence” interaction
 - `web_demo/styles.css` — static styling
+- `web_demo/assets/proof_summary.safe.json` — bundled sanitized score/trace/proof-path evidence
+- `web_demo/assets/before_after_excerpt.md` — bundled sanitized before/after diagnosis excerpt
 - `web_demo/README.md` — local run and deployment notes
 - `docs/architecture.mmd` — simple Mermaid architecture diagram for README/Devpost citation
 
@@ -19,7 +21,7 @@ python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-No secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls are embedded in the static page. The browser interaction uses sanitized proof facts; the source repo and demo video show the real runnable proof path.
+No secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls are embedded in the static page. The browser interaction fetches same-origin sanitized proof assets only; the source repo and demo video show the real runnable proof path.
 
 Verified hosted URL:
 
@@ -30,9 +32,11 @@ Verified hosted URL:
 - Project title/tagline
 - The stack: Gemini, Google ADK, OpenInference/Phoenix, Phoenix MCP, TracePilot operator
 - Proof narrative: `71/100 → 71/100 → 100/100`
-- Interactive safe proof replay: user task → ADK coordinator/specialists → Gemini/ADK output → Phoenix/OpenInference trace retrieval via Phoenix MCP → TracePilot diagnosis/refinement
-- Canonical trace/artifact references
-- Sanitized final-answer excerpt
+- Interactive safe proof explorer: user task → real proof path → hosted replay boundary → TracePilot diagnosis/refinement → score path
+- Evidence-backed score table: `71/100 → 71/100 → 100/100`
+- Canonical trace/artifact references, including `52fa8eaf399d8cc4251a9e7f8441a903`
+- Sanitized before/after failed-check excerpts and final-answer excerpt
+- Direct public proof-path links for `proof_gate/check_multi_agent_structure.py`, `proof_gate/run_real_gemini_phoenix_gate.sh`, `tracepilot_operator.py`, and `public_proof/*`
 - Correct demo video link: https://youtu.be/Old2pqRtC70
 - GitHub repo link: https://github.com/bullyopswork/tracepilot
 - Clear note that raw proof JSON, secrets, and private Phoenix UI/account data are not public
@@ -76,7 +80,7 @@ Not recommended for the current deadline. The static web shell can run in mobile
 
 ## Hosted URL status
 
-Current status: **public URL verified for the earlier shell; upgraded safe interactive demo is local-only until redeployed after approval**.
+Current status: **public URL verified for the earlier shell; upgraded evidence-backed sanitized proof explorer is local-only until redeployed after approval**.
 
 Verification on 2026-05-13:
 

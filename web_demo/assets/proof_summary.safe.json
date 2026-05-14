@@ -1,0 +1,97 @@
+{
+  "mode": "hosted sanitized proof explorer",
+  "honesty_boundary": "This hosted button fetches bundled, sanitized proof assets from the static site. It does not run Gemini, Google ADK, Phoenix, Phoenix MCP, MCP servers, or any private API. The repository proof gates and demo video show the real local Gemini/ADK/Phoenix/MCP execution path.",
+  "trace_id": "52fa8eaf399d8cc4251a9e7f8441a903",
+  "project_identifier": "tracepilot-proof",
+  "mcp_server": "@arizeai/phoenix-mcp@latest",
+  "model_version": "gemini-2.5-flash",
+  "score_progression": [
+    {
+      "run": "Baseline",
+      "artifact": "tracepilot_artifacts/20260513T040557Z/",
+      "trace_id": "ff9f2c11f553ed4ad5f0244604dfc579",
+      "score": "71/100",
+      "failed_checks": [
+        "Final answer preserves requested size M",
+        "Agent clicked/inspected a specific product"
+      ]
+    },
+    {
+      "run": "Second turn",
+      "artifact": "tracepilot_artifacts/20260513T115604Z/",
+      "trace_id": "8e4e88b7bb1c6c9def497031a28c0988",
+      "score": "71/100",
+      "failed_checks": [
+        "Final answer explains tool steps",
+        "Final answer preserves requested size M"
+      ]
+    },
+    {
+      "run": "Completion-fix run",
+      "artifact": "tracepilot_artifacts/20260513T120607Z/",
+      "trace_id": "52fa8eaf399d8cc4251a9e7f8441a903",
+      "score": "100/100",
+      "failed_checks": []
+    }
+  ],
+  "passed_checks": [
+    "Phoenix MCP returned retrievable trace",
+    "Trace contains spans",
+    "Agent used search context/tooling",
+    "Final answer mentions floral dress",
+    "Final answer explains tool steps",
+    "Final answer preserves requested size M",
+    "Agent clicked/inspected a specific product"
+  ],
+  "proof_paths": [
+    "proof_gate/check_multi_agent_structure.py",
+    "proof_gate/run_real_gemini_phoenix_gate.sh",
+    "proof_gate/check_phoenix_mcp.py",
+    "tracepilot_operator.py",
+    "public_proof/diagnosis.safe.json",
+    "public_proof/before_after_report.md"
+  ],
+  "safe_trace_facts": {
+    "span_count": 7,
+    "tool_span_count": 2,
+    "span_names": [
+      "invocation [hackathon_shopping]",
+      "agent_run [personalized_shopping_agent]",
+      "call_llm",
+      "call_llm",
+      "execute_tool click",
+      "call_llm",
+      "execute_tool search"
+    ],
+    "used_search": true,
+    "used_click": true,
+    "final_answer": "I found the \"Floral Summer Dress flowy midi\" (ASIN: B09P5CRVQ6) and confirmed that size M is available.\n\nHere are the tool steps used:\n1. Searched for \"floral dress\".\n2. Clicked on \"B09P5CRVQ6\"."
+  },
+  "repo_links": [
+    {
+      "label": "Structure proof gate",
+      "path": "proof_gate/check_multi_agent_structure.py",
+      "url": "https://github.com/bullyopswork/tracepilot/blob/main/proof_gate/check_multi_agent_structure.py"
+    },
+    {
+      "label": "Real Gemini/Phoenix proof gate",
+      "path": "proof_gate/run_real_gemini_phoenix_gate.sh",
+      "url": "https://github.com/bullyopswork/tracepilot/blob/main/proof_gate/run_real_gemini_phoenix_gate.sh"
+    },
+    {
+      "label": "TracePilot operator",
+      "path": "tracepilot_operator.py",
+      "url": "https://github.com/bullyopswork/tracepilot/blob/main/tracepilot_operator.py"
+    },
+    {
+      "label": "Sanitized diagnosis JSON",
+      "path": "public_proof/diagnosis.safe.json",
+      "url": "https://github.com/bullyopswork/tracepilot/blob/main/public_proof/diagnosis.safe.json"
+    },
+    {
+      "label": "Before/after public report",
+      "path": "public_proof/before_after_report.md",
+      "url": "https://github.com/bullyopswork/tracepilot/blob/main/public_proof/before_after_report.md"
+    }
+  ]
+}

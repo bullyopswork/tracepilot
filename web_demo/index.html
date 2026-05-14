@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TracePilot — safe Gemini/ADK hosted demo</title>
-  <meta name="description" content="Safe hosted demo mode for TracePilot: a Phoenix MCP-powered operator loop for debugging Gemini/ADK agents with sanitized proof data.">
+  <title>TracePilot — safe Gemini/ADK hosted proof explorer</title>
+  <meta name="description" content="Safe hosted proof explorer for TracePilot: a Phoenix MCP-powered operator loop for debugging Gemini/ADK agents with bundled sanitized proof data.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,11 +17,11 @@
         <span>71/100</span><strong>→</strong><span>71/100</span><strong>→</strong><span class="pass">100/100</span>
       </div>
       <div class="actions">
-        <button id="run-demo" type="button">Run safe demo proof</button>
+        <button id="run-demo" type="button">Load sanitized proof evidence</button>
         <a class="button secondary" href="https://github.com/bullyopswork/tracepilot" rel="noopener noreferrer">GitHub repo</a>
         <a class="button secondary" href="https://youtu.be/Old2pqRtC70" rel="noopener noreferrer">Demo video</a>
       </div>
-      <p class="safety-note"><strong>Safe hosted demo mode:</strong> this public page (safe hosted demo mode) runs a deterministic, sanitized simulation in your browser. It does not call Gemini, Google ADK, Phoenix, Phoenix MCP, or any private API. The source repo contains runnable code, and the video shows the real proof run.</p>
+      <p class="safety-note"><strong>Hosted sanitized proof explorer:</strong> this public page fetches bundled safe assets from <code>web_demo/assets/</code> and renders the evidence in your browser. It does not call Gemini, Google ADK, Phoenix, Phoenix MCP, MCP servers, or private APIs. The runnable repo and demo video show the real Gemini/ADK/Phoenix/MCP proof path.</p>
     </section>
 
     <section class="grid">
@@ -58,17 +58,46 @@
     <section class="card wide demo-panel" aria-labelledby="demo-title">
       <div class="demo-heading">
         <div>
-          <h2 id="demo-title">Safe interactive proof</h2>
-          <p>Click the button to replay the sanitized proof path judges can inspect without credentials.</p>
+          <h2 id="demo-title">Safe interactive proof evidence</h2>
+          <p>Click the button to fetch bundled sanitized proof assets and render the judge-inspectable evidence path.</p>
         </div>
-        <span class="pill">No live secrets · no external calls</span>
+        <span class="pill">Static assets only · no live calls</span>
       </div>
+      <div id="asset-status" class="asset-status" aria-live="polite">Evidence assets not loaded yet.</div>
       <ol id="demo-steps" class="timeline" aria-live="polite"></ol>
-      <div id="demo-result" class="result" hidden>
-        <h3>TracePilot result</h3>
-        <p><strong>Diagnosis:</strong> first two runs were plausible but under-specified: the trace did not prove product inspection and size-M confirmation. The final run preserved product-page context and required explicit tool-step explanation.</p>
-        <p><strong>Final score:</strong> <span class="pass-text">100/100</span> with trace retrieval, tool spans, floral-dress match, size-M preservation, product inspection, and tool-step explanation all passing.</p>
+      <div id="demo-result" class="result" hidden></div>
+    </section>
+
+    <section class="card wide evidence-panel" aria-labelledby="evidence-title">
+      <h2 id="evidence-title">Bundled public evidence assets</h2>
+      <div class="evidence-grid">
+        <article>
+          <h3>Score progression</h3>
+          <div id="score-table" class="table-wrap muted-box">Click “Load sanitized proof evidence” to render <code>assets/proof_summary.safe.json</code>.</div>
+        </article>
+        <article>
+          <h3>Trace and span facts</h3>
+          <dl id="trace-facts" class="compact-dl">
+            <dt>Asset</dt><dd><code>assets/proof_summary.safe.json</code></dd>
+            <dt>Trace ID</dt><dd><code>52fa8eaf399d8cc4251a9e7f8441a903</code></dd>
+          </dl>
+        </article>
       </div>
+      <article class="evidence-block">
+        <h3>Before/after diagnosis excerpt</h3>
+        <pre id="before-after" class="excerpt">Click the proof button to fetch <code>assets/before_after_excerpt.md</code>.</pre>
+      </article>
+      <article class="evidence-block">
+        <h3>Runnable proof files</h3>
+        <p class="note">These links point to the public repo proof path. The hosted page does not execute them.</p>
+        <ul id="proof-links" class="link-list">
+          <li><a href="https://github.com/bullyopswork/tracepilot/blob/main/proof_gate/check_multi_agent_structure.py" rel="noopener noreferrer"><code>proof_gate/check_multi_agent_structure.py</code></a></li>
+          <li><a href="https://github.com/bullyopswork/tracepilot/blob/main/proof_gate/run_real_gemini_phoenix_gate.sh" rel="noopener noreferrer"><code>proof_gate/run_real_gemini_phoenix_gate.sh</code></a></li>
+          <li><a href="https://github.com/bullyopswork/tracepilot/blob/main/tracepilot_operator.py" rel="noopener noreferrer"><code>tracepilot_operator.py</code></a></li>
+          <li><a href="https://github.com/bullyopswork/tracepilot/blob/main/public_proof/diagnosis.safe.json" rel="noopener noreferrer"><code>public_proof/diagnosis.safe.json</code></a></li>
+          <li><a href="https://github.com/bullyopswork/tracepilot/blob/main/public_proof/before_after_report.md" rel="noopener noreferrer"><code>public_proof/before_after_report.md</code></a></li>
+        </ul>
+      </article>
     </section>
 
     <section class="card wide">
@@ -84,57 +113,140 @@
   </main>
 
   <script>
-    const steps = [
-      {
-        label: 'User shopping task',
-        detail: 'Find a floral dress in size M, then explain which tool steps you used.'
-      },
-      {
-        label: 'Google ADK multi-agent coordination',
-        detail: 'personalized_shopping_agent routes work through product_selection_agent and purchase_verification_agent while preserving the direct search/click tool path used in the proof.'
-      },
-      {
-        label: 'Gemini / ADK output',
-        detail: 'Gemini interprets the request, searches for “floral dress,” clicks ASIN B09P5CRVQ6, and produces a structured final answer with explicit tool steps.'
-      },
-      {
-        label: 'Phoenix / OpenInference trace retrieval via Phoenix MCP',
-        detail: 'OpenInference spans are sent to Phoenix in the real run; TracePilot retrieves the latest trace through @arizeai/phoenix-mcp. This page replays sanitized trace facts only.'
-      },
-      {
-        label: 'TracePilot diagnosis and refinement',
-        detail: 'The operator checks trace retrievability, span health, search/click use, floral-dress match, size-M preservation, product inspection, and tool-step explanation.'
-      },
-      {
-        label: 'Score path',
-        detail: 'Before: 71/100. Second pass: 71/100. Completion-fix run: 100/100.'
-      }
-    ];
+    const assetPaths = {
+      summary: 'assets/proof_summary.safe.json',
+      beforeAfter: 'assets/before_after_excerpt.md'
+    };
 
     const button = document.getElementById('run-demo');
+    const statusBox = document.getElementById('asset-status');
     const list = document.getElementById('demo-steps');
     const result = document.getElementById('demo-result');
+    const scoreTable = document.getElementById('score-table');
+    const traceFacts = document.getElementById('trace-facts');
+    const beforeAfter = document.getElementById('before-after');
+    const proofLinks = document.getElementById('proof-links');
 
-    button.addEventListener('click', () => {
-      button.disabled = true;
-      button.textContent = 'Replaying safe proof…';
-      list.innerHTML = '';
-      result.hidden = true;
+    const proofSteps = [
+      ['User shopping task', 'Find a floral dress in size M, then explain which tool steps were used.'],
+      ['Real proof path', 'The runnable repo executes Gemini through Google ADK, emits OpenInference spans, and retrieves the latest trace through @arizeai/phoenix-mcp.'],
+      ['Hosted replay boundary', 'This button only fetches bundled sanitized assets from the static site: proof_summary.safe.json and before_after_excerpt.md.'],
+      ['TracePilot diagnosis', 'The operator checks trace retrievability, spans, search/click use, floral-dress match, size-M preservation, product inspection, and tool-step explanation.'],
+      ['Score path', 'Baseline 71/100 → second turn 71/100 → completion-fix run 100/100.']
+    ];
 
-      steps.forEach((step, index) => {
-        window.setTimeout(() => {
-          const item = document.createElement('li');
-          item.innerHTML = `<strong>${step.label}</strong><span>${step.detail}</span>`;
-          list.appendChild(item);
+    function clearNode(node) {
+      while (node.firstChild) node.removeChild(node.firstChild);
+    }
 
-          if (index === steps.length - 1) {
-            result.hidden = false;
-            button.disabled = false;
-            button.textContent = 'Run safe demo proof again';
-          }
-        }, 260 * index);
+    function el(tag, options = {}, children = []) {
+      const node = document.createElement(tag);
+      Object.entries(options).forEach(([key, value]) => {
+        if (key === 'className') node.className = value;
+        else if (key === 'text') node.textContent = value;
+        else if (key === 'href') node.href = value;
+        else if (key === 'rel') node.rel = value;
+        else node.setAttribute(key, value);
       });
-    });
+      children.forEach((child) => node.appendChild(typeof child === 'string' ? document.createTextNode(child) : child));
+      return node;
+    }
+
+    async function fetchText(path) {
+      const response = await fetch(path, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`${path} returned HTTP ${response.status}`);
+      return response.text();
+    }
+
+    function renderTimeline() {
+      clearNode(list);
+      proofSteps.forEach(([label, detail]) => {
+        list.appendChild(el('li', {}, [el('strong', { text: label }), el('span', { text: detail })]));
+      });
+    }
+
+    function renderScoreTable(summary) {
+      const table = el('table', { className: 'proof-table' });
+      const thead = el('thead', {}, [el('tr', {}, ['Run', 'Score', 'Trace/artifact', 'Failed checks'].map((head) => el('th', { text: head })))]);
+      const tbody = el('tbody');
+      summary.score_progression.forEach((row) => {
+        const failures = row.failed_checks.length ? row.failed_checks.join('; ') : 'None — all rubric checks passed';
+        tbody.appendChild(el('tr', {}, [
+          el('td', { text: row.run }),
+          el('td', { className: row.score === '100/100' ? 'pass-cell' : 'warn-cell', text: row.score }),
+          el('td', {}, [el('code', { text: row.trace_id }), el('br'), el('code', { text: row.artifact })]),
+          el('td', { text: failures })
+        ]));
+      });
+      table.append(thead, tbody);
+      clearNode(scoreTable);
+      scoreTable.className = 'table-wrap';
+      scoreTable.appendChild(table);
+    }
+
+    function renderTraceFacts(summary) {
+      clearNode(traceFacts);
+      const facts = [
+        ['Canonical trace ID', summary.trace_id],
+        ['Project', summary.project_identifier],
+        ['MCP server', summary.mcp_server],
+        ['Model', summary.model_version],
+        ['Span count', String(summary.safe_trace_facts.span_count)],
+        ['Tool spans', String(summary.safe_trace_facts.tool_span_count)],
+        ['Tool usage', `search=${summary.safe_trace_facts.used_search}, click=${summary.safe_trace_facts.used_click}`]
+      ];
+      facts.forEach(([key, value]) => {
+        traceFacts.append(el('dt', { text: key }), el('dd', {}, [el('code', { text: value })]));
+      });
+    }
+
+    function renderLinks(summary) {
+      clearNode(proofLinks);
+      summary.repo_links.forEach((link) => {
+        proofLinks.appendChild(el('li', {}, [
+          el('a', { href: link.url, rel: 'noopener noreferrer' }, [el('code', { text: link.path })]),
+          document.createTextNode(` — ${link.label}`)
+        ]));
+      });
+    }
+
+    function renderResult(summary) {
+      clearNode(result);
+      result.append(
+        el('h3', { text: 'TracePilot evidence-backed result' }),
+        el('p', { text: summary.honesty_boundary }),
+        el('p', {}, [document.createTextNode('Final score: '), el('span', { className: 'pass-text', text: '100/100' }), document.createTextNode(' with all public rubric checks passing.')]),
+        el('h4', { text: 'Final answer excerpt' }),
+        el('blockquote', { text: summary.safe_trace_facts.final_answer })
+      );
+      result.hidden = false;
+    }
+
+    async function runDemo() {
+      button.disabled = true;
+      button.textContent = 'Fetching bundled proof assets…';
+      statusBox.textContent = `Loading ${assetPaths.summary} and ${assetPaths.beforeAfter} from this static site…`;
+      result.hidden = true;
+      try {
+        const [summaryText, beforeAfterText] = await Promise.all([fetchText(assetPaths.summary), fetchText(assetPaths.beforeAfter)]);
+        const summary = JSON.parse(summaryText);
+        renderTimeline();
+        renderScoreTable(summary);
+        renderTraceFacts(summary);
+        renderLinks(summary);
+        beforeAfter.textContent = beforeAfterText.trim();
+        renderResult(summary);
+        statusBox.textContent = 'Loaded bundled sanitized proof assets. No external services were called.';
+        button.textContent = 'Reload sanitized proof evidence';
+      } catch (error) {
+        statusBox.textContent = `Could not load local proof assets: ${error.message}`;
+        button.textContent = 'Try loading proof evidence again';
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    button.addEventListener('click', runDemo);
   </script>
 </body>
 </html>

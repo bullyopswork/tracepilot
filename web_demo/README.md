@@ -1,6 +1,6 @@
 # TracePilot safe hosted web demo
 
-Safe hosted demo mode for the hackathon hosted-project requirement. It is intentionally safe: no secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls embedded in the public page. The interactive button replays deterministic sanitized proof facts so judges can test the flow without credentials.
+Safe hosted proof explorer for the hackathon hosted-project requirement. It is intentionally safe: no secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls embedded in the public page. The interactive button fetches bundled sanitized assets from `web_demo/assets/` and renders score, trace, before/after, and public proof-path evidence so judges can inspect the flow without credentials.
 
 Verified Cloud Run URL:
 
@@ -19,8 +19,9 @@ python3 -m http.server 8080
 - TracePilot project story
 - Stack summary: Gemini, Google ADK, OpenInference/Phoenix, Phoenix MCP
 - Multi-agent names: `personalized_shopping_agent`, `product_selection_agent`, and `purchase_verification_agent`
-- Interactive “Run safe demo proof” path that deterministically replays the sanitized proof sequence
-- Canonical proof references and sanitized `71/100 → 71/100 → 100/100` proof narrative
+- Interactive “Load sanitized proof evidence” path that fetches local static assets from `assets/proof_summary.safe.json` and `assets/before_after_excerpt.md`
+- Evidence-backed `71/100 → 71/100 → 100/100` score table with canonical trace ID `52fa8eaf399d8cc4251a9e7f8441a903`
+- Direct public proof-path links for `proof_gate/check_multi_agent_structure.py`, `proof_gate/run_real_gemini_phoenix_gate.sh`, `tracepilot_operator.py`, and `public_proof/*`
 - Correct demo video link: https://youtu.be/Old2pqRtC70
 - GitHub repo link: https://github.com/bullyopswork/tracepilot
 
@@ -28,7 +29,7 @@ python3 -m http.server 8080
 
 - `.env` contents
 - API keys/tokens
-- Raw proof JSON
+- Raw Phoenix trace JSON or private proof payloads
 - Private Phoenix/account UI screenshots
 - Any runtime external calls from the public static page
 
@@ -47,4 +48,4 @@ Command shape used from this directory:
 gcloud run deploy tracepilot-demo --source . --region us-central1 --project bullyopswork --allow-unauthenticated --quiet
 ```
 
-Verification: public HTTP status `200`; live page contains expected TracePilot title/H1, Phoenix MCP wording, and Gemini/ADK wording. After this local upgrade, redeploy is still required before the public URL reflects the safe interactive proof mode.
+Verification: public HTTP status `200`; live page contains expected TracePilot title/H1, Phoenix MCP wording, and Gemini/ADK wording. After this local upgrade, redeploy is still required before the public URL reflects the evidence-backed sanitized proof explorer.

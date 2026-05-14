@@ -17,7 +17,7 @@ AI agents can look successful while missing the actual user constraint. In the s
 
 ## What it does
 
-TracePilot sits above a compact Google ADK/Gemini shopping agent and turns observability into an operator feedback loop. The hosted page is a safe demo mode: it replays sanitized proof facts in-browser and does not expose live API keys or require public Phoenix/Gemini credentials.
+TracePilot sits above a compact Google ADK/Gemini shopping agent and turns observability into an operator feedback loop. The hosted page is a safe sanitized proof explorer: it fetches bundled public proof assets in-browser, renders the score table, canonical trace ID, before/after diagnosis excerpts, and public proof-file links, and does not expose live API keys or require public Phoenix/Gemini credentials.
 
 1. Run a real Gemini/ADK shopping turn with OpenInference spans emitted to Phoenix.
 2. Retrieve the latest Phoenix trace through `@arizeai/phoenix-mcp`.
@@ -32,7 +32,7 @@ TracePilot sits above a compact Google ADK/Gemini shopping agent and turns obser
 - **Tracing:** OpenInference/Phoenix instrumentation records agent, LLM, and tool spans.
 - **Retrieval:** Phoenix MCP retrieves trace/project context for the latest run.
 - **Operator layer:** `tracepilot_operator.py` deterministically reads safe proof artifacts and generates the score, diagnosis, and next-task refinement.
-- **Hosted demo mode:** `web_demo/` provides a static, judge-testable safe replay of the same proof sequence without live external calls.
+- **Hosted demo mode:** `web_demo/` provides a static, judge-testable sanitized proof explorer using bundled assets from `web_demo/assets/` without live external calls.
 - **Completion fix:** the search/click tool observations were changed to preserve enough product page context, and the shopping prompt was tightened so a one-turn exact-item request must answer with ASIN/title, explicit size confirmation, and the tool steps used.
 
 ## Arize / Phoenix usage
@@ -78,7 +78,7 @@ Gemini powers the ADK shopping agent. The verified fixed run used Gemini to inte
 - Turn the local operator loop into a repeatable evaluation harness across multiple tasks.
 - Add richer Phoenix-backed evals and trend views across agent revisions.
 - Expand beyond the compact in-memory catalog to the full WebShop or real commerce data.
-- Turn the Cloud Run static shell into a fuller hosted interactive demo.
+- Redeploy the upgraded Cloud Run static shell so the public URL reflects the evidence-backed sanitized proof explorer.
 - Add richer multi-task benchmark runs beyond the compact shopping proof slice.
 - Expand the operator loop to automatically compare Phoenix-backed eval trends across agent revisions.
 
