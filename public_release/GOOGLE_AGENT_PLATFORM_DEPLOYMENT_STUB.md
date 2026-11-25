@@ -39,9 +39,11 @@ Executed after approval:
 4. Verified the public URL from a clean browser/tooling path.
 5. Keep Devpost wording conservative: the public site demonstrates a local ADK/Gemini proof and links to the repository/video.
 
-Verified public URL:
+Historical Cloud Run endpoint, verified in May 2026:
 
-- https://tracepilot-demo-thryhyeqga-uc.a.run.app
+- `https://tracepilot-demo-thryhyeqga-uc.a.run.app`
+
+For the working reviewer link, see the [archived proof](../public_proof/before_after_report.md).
 
 ## Wording rule
 

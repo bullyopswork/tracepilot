@@ -1,10 +1,8 @@
-# TracePilot safe hosted web demo
+# TracePilot proof viewer
 
-Safe hosted proof explorer for the hackathon hosted-project requirement. It is intentionally safe: no secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls embedded in the public page. The interactive button fetches bundled sanitized assets from `web_demo/assets/` and renders score, trace, before/after, and public proof-path evidence so judges can inspect the flow without credentials.
+This static proof viewer was built for the hackathon. It contains no secrets and makes no external API calls or live Phoenix, Gemini, or Google ADK calls. The interactive button fetches bundled sanitized assets from `web_demo/assets/` and renders score, trace, before/after, and public proof-path evidence so judges can inspect the flow without credentials.
 
-Verified Cloud Run URL:
-
-- https://tracepilot-demo-thryhyeqga-uc.a.run.app
+Read the [archived before and after report](../public_proof/before_after_report.md) on GitHub, or run the interactive viewer locally. Neither requires API credentials.
 
 ## Run locally
 
@@ -33,14 +31,14 @@ python3 -m http.server 8080
 - Private Phoenix/account UI screenshots
 - Any runtime external calls from the public static page
 
-## Cloud Run deployment
+## Historical Cloud Run deployment
 
 Deployed after Ed approval on 2026-05-13:
 
 - Project: `bullyopswork`
 - Region: `us-central1`
 - Service: `tracepilot-demo`
-- Public URL: https://tracepilot-demo-thryhyeqga-uc.a.run.app
+- Historical endpoint: `https://tracepilot-demo-thryhyeqga-uc.a.run.app`
 
 Command shape used from this directory:
 
@@ -48,4 +46,4 @@ Command shape used from this directory:
 gcloud run deploy tracepilot-demo --source . --region us-central1 --project bullyopswork --allow-unauthenticated --quiet
 ```
 
-Verification: public HTTP status `200`; live page contains expected TracePilot title/H1, Phoenix MCP wording, and Gemini/ADK wording. After this local upgrade, redeploy is still required before the public URL reflects the evidence-backed sanitized proof explorer.
+The original static shell returned HTTP `200` when verified in May 2026. The old endpoint is not a working public demo. Use the archived report or the local viewer above.

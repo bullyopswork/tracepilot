@@ -23,9 +23,11 @@ python3 -m http.server 8080
 
 No secrets, no external API calls, and no live Phoenix/Gemini/Google ADK calls are embedded in the static page. The browser interaction fetches same-origin sanitized proof assets only; the source repo and demo video show the real runnable proof path.
 
-Verified hosted URL:
+Historical Cloud Run endpoint, verified in May 2026:
 
-- https://tracepilot-demo-thryhyeqga-uc.a.run.app
+- `https://tracepilot-demo-thryhyeqga-uc.a.run.app`
+
+Use the [archived proof](../public_proof/before_after_report.md) instead of the old endpoint.
 
 ## What the web shell should show
 
@@ -72,7 +74,7 @@ Verified service:
 - Service: `tracepilot-demo`
 - Project: `bullyopswork`
 - Region: `us-central1`
-- Public URL: https://tracepilot-demo-thryhyeqga-uc.a.run.app
+- Historical URL: `https://tracepilot-demo-thryhyeqga-uc.a.run.app`
 
 ### Option C — Android/iOS wrapper
 

@@ -2,7 +2,7 @@
 
 ## Public links
 
-- Hosted demo: https://tracepilot-demo-thryhyeqga-uc.a.run.app
+- Recorded proof: [archived before and after report](../public_proof/before_after_report.md). The old hosted demo is not available.
 - GitHub repo: https://github.com/bullyopswork/tracepilot
 - Demo video: https://youtu.be/Old2pqRtC70
 - Architecture diagram: `docs/architecture.mmd`

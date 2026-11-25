@@ -16,6 +16,8 @@ TracePilot is an operator layer above an agent, not another shopping bot. The de
 
 No credentials are printed or saved in generated reports.
 
+**Review without credentials:** Read the [archived before and after report](public_proof/before_after_report.md), or [run the static proof viewer locally](web_demo/README.md#run-locally).
+
 ## Prerequisites
 
 - Python 3.10–3.12
@@ -27,7 +29,8 @@ No credentials are printed or saved in generated reports.
 
 1. **Clone and install**
   ```bash
-   cd gemini-hackathon
+   git clone https://github.com/bullyopswork/tracepilot.git
+   cd tracepilot
    cp .env.example .env
    # Edit .env: PHOENIX_API_KEY, PHOENIX_COLLECTOR_ENDPOINT (Hostname with /s/...), and either GOOGLE_API_KEY or Vertex settings.
    uv sync
@@ -132,7 +135,7 @@ Known caveats:
 
 - This is an internal proof slice, not a hosted product.
 - The refined task is generated locally; the default demo does not automatically run a second Gemini turn unless the operator chooses to run the proof gate again with `tracepilot_artifacts/latest/refined_task.txt`.
-- Current verified proof: baseline `71/100` → second turn `71/100` → latest completion-fix run `100/100` (`tracepilot_artifacts/latest/before_after_report.md`).
+- The [recorded May 2026 run](public_proof/before_after_report.md) scored `71/100` on the baseline, `71/100` on the second turn, and `100/100` after the completion fix. It predates the current ADK multi-agent wiring.
 - External Devpost/GitHub publication remains approval-gated.
 
 ## Layout
